@@ -61,7 +61,7 @@ const IndexPage = ({ onSectionChange, show }) => {
       <Card
         title={"Shipping"}
         handleClick={() => onSectionChange('shipping')}
-        description={!loading ? `${addresses.shipping.first_name} ${addresses.shipping.last_name}` : 'No shipping address selected'}
+        description={loading ? '' : addresses.shipping.first_name ? `${addresses.shipping.first_name} ${addresses.shipping.last_name}` : 'No shipping address selected'}
       >
       { (loading && <LoadingState/>) || 
       ( 
