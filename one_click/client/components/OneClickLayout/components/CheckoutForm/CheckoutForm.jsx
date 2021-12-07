@@ -9,6 +9,7 @@ import { Inventory } from '../Inventory';
 import { ProcessingOrder } from '../Processing';
 import { Confirmation } from '../Confirmation';
 import { IndexPage } from '../Index';
+import { LoadingState } from '../LoadingState';
 
 const CheckoutForm = () => {
   const { data: lineItems } = useLineItems();
@@ -18,6 +19,7 @@ const CheckoutForm = () => {
   const checkInventory = useInventory();
   const history = useHistory();
   const [openSection, setOpenSection] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getInventory = async () => {
     const inventory = await checkInventory(lineItems);
@@ -26,8 +28,10 @@ const CheckoutForm = () => {
     }
   }
 
-  useEffect(() => {
-    getInventory();
+  useEffect(async () => {
+    setLoading(true);
+    await getInventory();
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -41,16 +45,19 @@ const CheckoutForm = () => {
 
   return (
     <div className="Checkout__Form">
-      <Switch location={location}>
-        <Route exact path="/processing" component={ProcessingOrder} />
-        <Route exact path="/confirmation" component={Confirmation} />
-        <Route exact path="/inventory" component={Inventory} />
-        <Route exact path="/">
-          <IndexPage onSectionChange={setOpenSection} show={openSection===null}/>
-        </Route>
-      </Switch>
-      <Shipping show={openSection==='shipping'} onBack={() => setOpenSection(null)} />
-      <Summary show={openSection==='summary'}  onBack={() => setOpenSection(null)} />
+      { (loading && <LoadingState/>) || 
+      <>
+        <Switch location={location}>
+          <Route exact path="/processing" component={ProcessingOrder} />
+          <Route exact path="/confirmation" component={Confirmation} />
+          <Route exact path="/inventory" component={Inventory} />
+          <Route exact path="/">
+            <IndexPage onSectionChange={setOpenSection} show={openSection===null}/>
+          </Route>
+        </Switch>
+        <Shipping show={openSection==='shipping'} onBack={() => setOpenSection(null)} />
+        <Summary show={openSection==='summary'}  onBack={() => setOpenSection(null)} />
+      </> }
     </div>
   )};
 
