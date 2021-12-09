@@ -9,6 +9,7 @@ import { Address } from "../Address";
 import { Header } from "../Header";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
+import { SummaryCondensed } from "../Summary";
 
 const IndexGuest = ({ onSectionChange, show }, ref) => {
   const { websiteName } = useContext(AppContext);
@@ -42,16 +43,9 @@ const IndexGuest = ({ onSectionChange, show }, ref) => {
   return (
     <div ref={ref} className={classNames('Sidebar IndexGuest', show ? 'Sidebar--Show' : 'IndexPage--Hide')}>
       <Header title={websiteName} />
-      <div className="IndexGuest-summary">
-        <button
-          className="IndexGuest-summary-btn"
-          onClick={() => onSectionChange('summary')}
-        >
-          <ChevronRight className="IndexGuest-chevron"/>
-          <h2>Summary</h2>
-          <Price amount={state.applicationState.order_total} />
-      </button>
-      </div>
+      
+      <SummaryCondensed onSectionChange={onSectionChange}/>
+
       <div className="IndexGuest-customer">
         <h2 className="IndexGuest-title">Customer Info</h2>
         <div className="IndexGuest-login">Already have an account? <Link to='#'>Log in</Link></div>

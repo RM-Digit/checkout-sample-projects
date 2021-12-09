@@ -123,7 +123,7 @@ const CheckoutForm = () => {
         <>
           <Shipping ref={shippingEl} show={openSection==='shipping'} onBack={() => setOpenSection("/")} />
           <Summary ref={summaryEl} show={openSection==='summary'}  onBack={() => setOpenSection("/")} />
-          <Billing ref={billingEl} show={openSection==='billing'} onBack={() => setOpenSection("/")}/>
+          <Billing ref={billingEl} show={openSection==='billing'} onBack={() => setOpenSection("/")} onSectionChange={setOpenSection}/>
         </>
         : null
       }
