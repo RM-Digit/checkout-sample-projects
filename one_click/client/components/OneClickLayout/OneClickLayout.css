@@ -253,6 +253,10 @@ h1.Section__Title {
   color: rgba(0, 0, 0, 0.4);
 }
 
+.IndexGuest-footer .CheckoutButton__Container { 
+  padding: 0;
+}
+
 @media only screen and (max-width: 768px) {
   .Sidebar {
     height: 100%;
