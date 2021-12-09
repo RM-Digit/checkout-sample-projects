@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Button, CheckboxField, InputField, Price } from "@boldcommerce/stacks-ui/lib";
+import { Button, CheckboxField, InputField } from "@boldcommerce/stacks-ui/lib";
 import { useShippingAddress, useCountryInfo, useCheckoutStore, useCustomer } from "@boldcommerce/checkout-react-components";
 import { useAnalytics, useErrorLogging } from "../../../../hooks";
 import { ShippingLines } from "../ShippingLines";
-import { ChevronRight } from "../Icons";
 import { AppContext } from "../../context/AppContext";
 import { Address } from "../Address";
 import { Header } from "../Header";
