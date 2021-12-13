@@ -1,17 +1,17 @@
 const fetch = require('node-fetch');
 const ResponseError = require('./responseError');
 
-async function createCheckout(body) {
-  console.log("iden",process.env.SHOP_IDENTIFIER)
-  const response = await fetch(`https://api.boldcommerce.com/checkout/orders/${process.env.SHOP_IDENTIFIER}/init`, {
+async function resumeCheckout(publicOrderId) {
+  const response = await fetch(`https://api.boldcommerce.com/checkout/orders/${process.env.SHOP_IDENTIFIER}/resume`, {
     headers: {
       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      public_order_id: publicOrderId,
+    }),
   });
-
 
   if (response.status !== 200) {
     throw new ResponseError(response.statusText, response.status);
@@ -20,4 +20,4 @@ async function createCheckout(body) {
   return await response.json();
 }
 
-module.exports = createCheckout;
+module.exports = resumeCheckout;

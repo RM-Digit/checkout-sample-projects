@@ -1,0 +1,37 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/frontend",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/",
+        "function": "api"
+      },
+      {
+        "source": "/processing",
+        "function": "api"
+      },
+      {
+        "source": "/confirmation",
+        "function": "api"
+      },
+      {
+        "source": "/inventory_issues",
+        "function": "api"
+      },
+      {
+        "source": "/validate_inventory",
+        "function": "api"
+      }
+    ]
+  }
+  
+}

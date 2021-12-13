@@ -1,4 +1,5 @@
 require('dotenv').config();
+const functions = require('firebase-functions')
 const express = require('express');
 const handlebars = require('express-handlebars');
 const createCheckout = require('./helpers/createCheckout');
@@ -10,11 +11,10 @@ app.engine('handlebars', handlebars());
 app.set('view engine', 'handlebars');
 app.set('views','./views');
 app.use(express.static('public'));
-const port = 3000;
 
 app.get('/', async (req, res) => {
   let publicOrderId = req.query.public_order_id;
-
+  console.log("message")
   // TODO: Change this to get data from request instead
   const exampleBody = {
     "cart_items": [{
@@ -40,14 +40,14 @@ app.get('/', async (req, res) => {
     }
   }
 
-  try { console.log("checkout")
+  try {
     let checkout;
     if (publicOrderId) {
       checkout = await resumeCheckout(publicOrderId);
     } else {
       checkout = await createCheckout(exampleBody);
     }
-   
+    console.log("checkout", checkout)
     const initialData = checkout.data.initial_data;
     const jwtToken = checkout.data.jwt_token;
     publicOrderId = checkout.data.public_order_id;
@@ -124,6 +124,4 @@ app.get('/validate_inventory', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+exports.api = functions.https.onRequest(app)

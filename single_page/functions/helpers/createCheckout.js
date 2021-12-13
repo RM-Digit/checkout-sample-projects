@@ -2,7 +2,6 @@ const fetch = require('node-fetch');
 const ResponseError = require('./responseError');
 
 async function createCheckout(body) {
-  console.log("iden",process.env.SHOP_IDENTIFIER)
   const response = await fetch(`https://api.boldcommerce.com/checkout/orders/${process.env.SHOP_IDENTIFIER}/init`, {
     headers: {
       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,

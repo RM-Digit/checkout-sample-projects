@@ -7,7 +7,7 @@
     "client:watch": "webpack --watch --config webpack.dev.js",
     "server:watch": "nodemon ./server/index.js",
     "dev": "concurrently \"npm run server:watch\" \"npm run client:watch\"",
-    "build": "NODE_ENV=production webpack --config webpack.prod.js",
+    "build": "SET NODE_ENV=production webpack --config webpack.prod.js",
     "start": "node ./server/index.js"
   },
   "devDependencies": {
